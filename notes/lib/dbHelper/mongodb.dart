@@ -12,4 +12,18 @@ class MongoDB {
     await db.open();
     userCollection = db.collection(USER_COLLECTION);
   }
+
+  Future<String> insert(data) async {
+    try {
+      var result = await userCollection.insertOne(data.toJson());
+
+      if (result.isSuccess) {
+        return "Info inserida";
+      } else {
+        return "algo deu errado";
+      }
+    } catch (e) {
+      return e.toString();
+    }
+  }
 }
